@@ -1,5 +1,7 @@
 package com.shaili.kafka_order_system.controller;
 
+import java.util.UUID;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +18,9 @@ public class OrderController {
 
     @PostMapping("/orders")
     public String placeOrder(@RequestParam String item) {
-        String message = "Order Placed: " + item;
+        String orderId = UUID.randomUUID().toString();
+        String message = orderId + "|" + item;
         orderProducer.sendOrderEvent(message);
-        return "Order accepted: " + item;
+        return "Order accepted: " + item + " (orderId: " + orderId + ")";
     }
 }
