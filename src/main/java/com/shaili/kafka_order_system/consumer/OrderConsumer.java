@@ -22,6 +22,12 @@ public class OrderConsumer {
         String[] parts = message.split("\\|", 2);
         String orderId = parts[0];
         String item = parts[1];
+        // -----------------------------------------------------
+
+        if (item.equals("FAIL")) {
+            throw new RuntimeException("Simulated processing failure for testing DLQ");
+        }
+        // -----------------------------------------------------
         // yaha "processed-order:" ye prefix isliye add kiya hai taaki naming convention
         // ki tarah use kar sake.agar akbhi aage chal k bahut saare data store hue redis
         // mein toh iss naming convention se pta chal payega kiska kya kaam hai
